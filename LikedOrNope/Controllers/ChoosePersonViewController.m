@@ -25,6 +25,7 @@
 #import "ChoosePersonViewController.h"
 #import "Person.h"
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
+#import "ProfileViewController.h"
 
 static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -51,7 +52,18 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.navigationController.navigationBarHidden = false;
+    
+    UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Profile"
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self
+                                   action:@selector(flipView:)];
+    self.navigationItem.rightBarButtonItem = flipButton;
+    //[flipButton setImage:[UIImage imageNamed:@"profilepic.jpg"] forState:UIControlStateNormal];
+    
+    //[flipButton release];
+    
     // Display the first ChoosePersonView in front. Users can swipe to indicate
     // whether they like or dislike the person displayed.
     self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
@@ -67,10 +79,31 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // See the `nopeFrontCardView` and `likeFrontCardView` methods.
     [self constructNopeButton];
     [self constructLikedButton];
+    
+    //Buy Now button
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button setTitle:@"Show View" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
+    [button setTitle:@"Buy Now" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:0.6];
+    button.frame = CGRectMake(80.0, 515.0, 160.0, 40.0);
+    
+    //Add Profile button
+    UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [profileButton setImage:[UIImage imageNamed:@"profilepic.jpg"] forState:UIControlStateNormal];
+    profileButton.frame = CGRectMake(100, 10, 40, 40);
+    profileButton.clipsToBounds = YES;
+    profileButton.layer.cornerRadius = 40/2.0f;
+    profileButton.layer.borderColor=[UIColor redColor].CGColor;
+    profileButton.layer.borderWidth=2.0f;
+    
+    
     [self.view addSubview:button];
+    [self.view addSubview:profileButton];
+}
+
+- (IBAction)flipView{
+    ProfileViewController *kickAss = [[ProfileViewController alloc] init];
+    [self.navigationController pushViewController:kickAss animated:YES];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {

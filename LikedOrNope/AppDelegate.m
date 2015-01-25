@@ -25,6 +25,7 @@
 #import "AppDelegate.h"
 #import "ChoosePersonViewController.h"
 #import "FirstCategory.h"
+#import "ProfileViewController.h"
 
 @implementation AppDelegate
 
@@ -35,10 +36,10 @@
     FirstCategory *A = [[FirstCategory alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:A];
     ChoosePersonViewController *X = [[ChoosePersonViewController alloc] init];
-    //UIViewController *Y = [[UIViewController alloc] init];
+    ProfileViewController *Y = [[ProfileViewController alloc] init];
     //UIViewController *Z = [[UIViewController alloc] init];
     UITabBarController *tabVC = [[UITabBarController alloc] init];
-    tabVC.viewControllers = @[navVC, X];
+    tabVC.viewControllers = @[navVC, X, Y];
     self.window.rootViewController = tabVC;
     return YES;
 }

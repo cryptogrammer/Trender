@@ -14,6 +14,8 @@
 		1DC624051A74B533005F1FC6 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC624041A74B533005F1FC6 /* Storyboard.storyboard */; };
 		1DC624081A74B923005F1FC6 /* FirstCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC624071A74B923005F1FC6 /* FirstCategory.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
+		D06E03951A750CC0002630B6 /* profilepic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D06E03941A750CC0002630B6 /* profilepic.jpg */; };
+		D06E03981A7512C1002630B6 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06E03971A7512C1002630B6 /* ProfileViewController.m */; };
 		DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B73EB18F233EF00BB5F8E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */; };
 		DA5B73ED18F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
@@ -53,6 +55,9 @@
 		36C95DAB8815C2278ACEF9D0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBC479378F89BD9014DA09F3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D06E03941A750CC0002630B6 /* profilepic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profilepic.jpg; sourceTree = "<group>"; };
+		D06E03961A7512C1002630B6 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		D06E03971A7512C1002630B6 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		DA5B73E518F233EF00BB5F8E /* LikedOrNope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LikedOrNope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B73E818F233EF00BB5F8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -163,6 +168,7 @@
 		DA5B73EF18F233EF00BB5F8E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D06E03941A750CC0002630B6 /* profilepic.jpg */,
 				1D7D71E11A7505CE007F2F36 /* pic1.jpg */,
 				1D7D71E21A7505CE007F2F36 /* pic2.jpg */,
 				1D7D71E31A7505CE007F2F36 /* pic3.jpg */,
@@ -200,6 +206,8 @@
 				DA5B745618F239B700BB5F8E /* ChoosePersonViewController.m */,
 				1DC624061A74B923005F1FC6 /* FirstCategory.h */,
 				1DC624071A74B923005F1FC6 /* FirstCategory.m */,
+				D06E03961A7512C1002630B6 /* ProfileViewController.h */,
+				D06E03971A7512C1002630B6 /* ProfileViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -303,6 +311,7 @@
 			files = (
 				1D7D71E51A7505CE007F2F36 /* pic1.jpg in Resources */,
 				1D7D71E61A7505CE007F2F36 /* pic2.jpg in Resources */,
+				D06E03951A750CC0002630B6 /* profilepic.jpg in Resources */,
 				DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */,
 				1D7D71E81A7505CE007F2F36 /* pic4.jpg in Resources */,
 				DA5B73FB18F233EF00BB5F8E /* Images.xcassets in Resources */,
@@ -362,6 +371,7 @@
 				DA5B746118F239B700BB5F8E /* ImageLabelView.m in Sources */,
 				DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */,
 				DA5B745F18F239B700BB5F8E /* ChoosePersonViewController.m in Sources */,
+				D06E03981A7512C1002630B6 /* ProfileViewController.m in Sources */,
 				DA5B746018F239B700BB5F8E /* Person.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				1DC624081A74B923005F1FC6 /* FirstCategory.m in Sources */,
