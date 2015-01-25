@@ -104,7 +104,7 @@ static NSMutableArray *UIImageArray;
     [self.view addSubview:profileButton];
     
     //---------------------------------------------------------------------
-    NSString *keyword = @"shirt%20men";
+    NSString *keyword = @"washer";
     NSMutableString *url_1 = [[NSMutableString alloc] init ];
     [url_1 appendString:@"http://api.developer.sears.com/v2.1/products/search/Sears/json/keyword/%7B"];
     [url_1 appendString:keyword];
@@ -113,6 +113,31 @@ static NSMutableArray *UIImageArray;
     NSHTTPURLResponse *response = nil;
     NSString *jsonUrlString = url_1;
     NSURL *url = [NSURL URLWithString:[jsonUrlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    //Saving images in a folder
+    NSString *picname = [url lastPathComponent];//hear u are getting the image name as the last part of your url
+    NSString *imagePath = [NSString stringWithFormat:@"/uplpad/%@",picname]; //here picname is unique for each download, thus u hav different name for each file u saved
+    NSData *imageData = [NSData dataWithContentsOfURL:url];
+    
+    if(imageData != nil)
+    {
+       // NSString *Dir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+       // NSString *pngPath = [NSString stringWithFormat:@"Images.xcassets/%@",imagePath]; //path means ur destination contain's  this format -> "/foldername/picname" pickname must be unique
+        NSString *testName = @"test.png";
+       /** if(![[NSFileManager defaultManager] fileExistsAtPath:[pngPath stringByDeletingLastPathComponent]])
+        {
+            NSError *error;
+            [[NSFileManager defaultManager] createDirectoryAtPath:[pngPath stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:&error];
+            if(error)
+            {
+                NSLog(@"error in creating dir");
+            }
+        }
+    **/
+        [imageData writeToFile:testName atomically:YES];
+    }
+
+    
     
     //-- Get request and response though URL
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
@@ -127,7 +152,7 @@ static NSMutableArray *UIImageArray;
     UIImageArray = [[NSMutableArray alloc] init];
     
     
-    for(int i=0;i<[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] count];i++){
+    for(int i=0;i<1;i++){
         [productIds addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Id"] objectForKey:@"PartNumber"]];
         [productNames addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Description"] objectForKey:@"Name"]];
         [productBrandNames addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Description"] objectForKey:@"BrandName"]];
@@ -205,14 +230,15 @@ static NSMutableArray *UIImageArray;
     // as needed, but for the purposes of this sample app we'll
     // simply store them in memory.
     return @[
+             
         [[Person alloc] initWithName:@"Finn"
-                               image:[UIImageArray objectAtIndex:0]
+                               image:[UIImage imageNamed:@"test.png"]
                                  age:15
                numberOfSharedFriends:3
              numberOfSharedInterests:2
                       numberOfPhotos:1],
         [[Person alloc] initWithName:@"Jake"
-                               image:[UIImage imageNamed:@"jake"]
+                               image:[UIImage imageNamed:@"pic1.jpg"]
                                  age:28
                numberOfSharedFriends:2
              numberOfSharedInterests:6
@@ -336,7 +362,7 @@ static NSMutableArray *UIImageArray;
 /**
  * Utkarsh
  
- NSString *keyword = @"shirt%20men";
+ NSString *keyword = @"washer";
  NSMutableString *url_1 = [[NSMutableString alloc] init ];
  [url_1 appendString:@"http://api.developer.sears.com/v2.1/products/search/Sears/json/keyword/%7B"];
  [url_1 appendString:keyword];
