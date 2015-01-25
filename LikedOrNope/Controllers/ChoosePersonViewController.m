@@ -26,6 +26,7 @@
 #import "Person.h"
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 #import "ProfileViewController.h"
+//#import "GlobalVars.m"
 
 static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -33,6 +34,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 @interface ChoosePersonViewController ()
 @property (nonatomic, strong) NSMutableArray *people;
 @end
+
+static NSMutableArray *UIImageArray;
 
 @implementation ChoosePersonViewController
 
@@ -99,6 +102,49 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     [self.view addSubview:button];
     [self.view addSubview:profileButton];
+    
+    //---------------------------------------------------------------------
+    NSString *keyword = @"shirt%20men";
+    NSMutableString *url_1 = [[NSMutableString alloc] init ];
+    [url_1 appendString:@"http://api.developer.sears.com/v2.1/products/search/Sears/json/keyword/%7B"];
+    [url_1 appendString:keyword];
+    [url_1 appendString:@"%7D?apikey=BkteZNjC7GR9P4FRq6H4G1XZ2FSHBQi1"];
+    
+    NSHTTPURLResponse *response = nil;
+    NSString *jsonUrlString = url_1;
+    NSURL *url = [NSURL URLWithString:[jsonUrlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    //-- Get request and response though URL
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    
+    //-- JSON Parsing
+    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseData options:nil error:nil];
+    NSMutableArray *productIds = [[NSMutableArray alloc] init];
+    NSMutableArray *productNames = [[NSMutableArray alloc] init];
+    NSMutableArray *productBrandNames = [[NSMutableArray alloc] init];
+    NSMutableArray *productImageURLs = [[NSMutableArray alloc] init];
+    UIImageArray = [[NSMutableArray alloc] init];
+    
+    
+    for(int i=0;i<[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] count];i++){
+        [productIds addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Id"] objectForKey:@"PartNumber"]];
+        [productNames addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Description"] objectForKey:@"Name"]];
+        [productBrandNames addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Description"] objectForKey:@"BrandName"]];
+        [productImageURLs addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Description"] objectForKey:@"ImageURL"]];
+        NSLog(@"%@",[productIds objectAtIndex:i]);
+        NSLog(@"%@",[productNames objectAtIndex:i]);
+        NSLog(@"%@",[productBrandNames objectAtIndex:i]);
+        NSLog(@"%@",[productImageURLs objectAtIndex:i]);
+        NSURL *imageURL = [NSURL URLWithString:productImageURLs[i]];
+        NSData *data = [NSData dataWithContentsOfURL:imageURL];
+        [UIImageArray addObject:[[UIImage alloc] initWithData:data]];
+        
+    }
+    
+    
+    
+    
 }
 
 - (IBAction)flipView{
@@ -160,7 +206,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // simply store them in memory.
     return @[
         [[Person alloc] initWithName:@"Finn"
-                               image:[UIImage imageNamed:@"finn"]
+                               image:[UIImageArray objectAtIndex:0]
                                  age:15
                numberOfSharedFriends:3
              numberOfSharedInterests:2
@@ -284,5 +330,51 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 - (void)likeFrontCardView {
     [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
 }
+
+
+
+/**
+ * Utkarsh
+ 
+ NSString *keyword = @"shirt%20men";
+ NSMutableString *url_1 = [[NSMutableString alloc] init ];
+ [url_1 appendString:@"http://api.developer.sears.com/v2.1/products/search/Sears/json/keyword/%7B"];
+ [url_1 appendString:keyword];
+ [url_1 appendString:@"%7D?apikey=BkteZNjC7GR9P4FRq6H4G1XZ2FSHBQi1"];
+ 
+ NSHTTPURLResponse *response = nil;
+ NSString *jsonUrlString = url_1;
+ NSURL *url = [NSURL URLWithString:[jsonUrlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+ 
+ //-- Get request and response though URL
+ NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
+ NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+ 
+ //-- JSON Parsing
+ NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseData options:nil error:nil];
+ NSMutableArray *productIds = [[NSMutableArray alloc] init];
+ NSMutableArray *productNames = [[NSMutableArray alloc] init];
+ NSMutableArray *productBrandNames = [[NSMutableArray alloc] init];
+ NSMutableArray *productImageURLs = [[NSMutableArray alloc] init];
+ NSMutableArray *UIImageArray = [[NSMutableArray alloc] init];
+ 
+ 
+ for(int i=0;i<[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] count];i++){
+ [productIds addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Id"] objectForKey:@"PartNumber"]];
+ [productNames addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Description"] objectForKey:@"Name"]];
+ [productBrandNames addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Description"] objectForKey:@"BrandName"]];
+ [productImageURLs addObject:[[[[[result objectForKey:@"SearchResults"] objectForKey:@"Products"] objectAtIndex:i] objectForKey:@"Description"] objectForKey:@"ImageURL"]];
+ 
+ 
+ NSLog(@"%@",[productIds objectAtIndex:i]);
+ NSLog(@"%@",[productNames objectAtIndex:i]);
+ NSLog(@"%@",[productBrandNames objectAtIndex:i]);
+ NSLog(@"%@",[productImageURLs objectAtIndex:i]);
+ NSURL *imageURL = [NSURL URLWithString:productImageURLs[i]];
+ NSData *data = [NSData dataWithContentsOfURL:imageURL];
+ [UIImageArray addObject:[[UIImage alloc] initWithData:data]];
+ 
+ }
+ */
 
 @end
